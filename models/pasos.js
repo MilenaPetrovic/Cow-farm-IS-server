@@ -9,12 +9,11 @@ const pasosSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    idZivotinje:{
+        type: String,
+        required: true
     }
-    // id zivotinje?
-    // idZivotinje:{
-    //     type: String,
-    //     required: true
-    // }
 })
 
 module.exports = mongoose.model('pasos', pasosSchema)

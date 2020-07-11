@@ -21,7 +21,8 @@ router.get('/:id', getPasos, (req, res) => {
 router.post('/', async (req, res) => {
     const pasos = new Pasos({
         brojPasosa: req.body.brojPasosa,
-        datumIzdavanja: req.body.datumIzdavanja
+        datumIzdavanja: req.body.datumIzdavanja,
+        idZivotinje: req.body.idZivotinje
     })
 
     try{
@@ -39,6 +40,9 @@ router.patch('/:id',getPasos, async (req, res) => {
     }
     if(req.body.datumIzdavanja != null){
         res.pasos.datumIzdavanja = req.body.datumIzdavanja
+    }
+    if(req.body.idZivotinje != null){
+        res.pasos.idZivotinje = req.body.idZivotinje
     }
     try{
         const izmenjenPasos = await res.pasos.save()
@@ -59,15 +63,17 @@ router.delete('/:id',getPasos, async (req, res) => {
 })
 
 async function getPasos(req, res, next){
+    let query = {"brojPasosa":req.params.id}
+    
     try{
-        pasos = await Pasos.findById(req.params.id)
-        if(pasos == null){
+        pasos = await Pasos.find(query)
+        if(pasos[0] == null){
             return res.status(400).json({message: "Nije moguce pronaci pasos!"})
         }
     } catch(err) {
         return res.status(500).json({message: err.message})
     }
-    res.pasos = pasos
+    res.pasos = pasos[0]
     next()
 }
 

@@ -19,4 +19,10 @@ app.use('/korisnici', korisniciRouter)
 const pasosiRouter = require('./routes/pasosi')
 app.use('/pasosi', pasosiRouter)
 
+const otpremnicaRouter = require('./routes/otpremnice')
+app.use('/otpremnice', otpremnicaRouter)
+
+const mlekaraRouter = require('./routes/mlekare')
+app.use('/mlekare', mlekaraRouter)
+
 app.listen(4500, ()=> console.log('Server started...'))
